@@ -16,22 +16,23 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
-export const Title = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 36px;
-  font-weight: bold;
-`;
-
 export const WriterWrapper = styled.div`
-  width: 100%;
+  width: 100%; //1200px
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding-top: 40px;
 `;
 
+export const Title = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+`;
+
 export const InputWrapper = styled.div`
   padding-top: 40px;
+  width: 100%;
 `;
 
 export const Label = styled.div`
@@ -41,8 +42,14 @@ export const Label = styled.div`
 `;
 
 export const Writer = styled.input`
-  width: 560px;
+  width: calc(100%);
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+`;
+
+export const Subject = styled.input`
+  width: calc(100%); //996px;
+  height: 52px;
+  padding-left: 16px;
 `;

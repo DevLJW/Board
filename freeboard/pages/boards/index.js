@@ -5,6 +5,7 @@ import {
   Label,
   InputWrapper,
   Writer,
+  Subject,
 } from "../../styles/BoardWrite";
 
 export default function BoardWrite() {
@@ -24,6 +25,10 @@ export default function BoardWrite() {
           ></Writer>
         </InputWrapper>
       </WriterWrapper>
+      <InputWrapper>
+        <Label>제목</Label>
+        <Subject type="text" placeholder="제목을 작성해주세요." />
+      </InputWrapper>
     </Wrapper>
   );
 }
