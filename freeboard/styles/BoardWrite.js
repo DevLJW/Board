@@ -52,4 +52,5 @@ export const Subject = styled.input`
   width: calc(100% - 30px); //996px;
   height: 52px;
   padding-left: 16px;
+  border: 1px solid #bdbdbd;
 `;
