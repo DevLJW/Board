@@ -42,14 +42,15 @@ export const Label = styled.div`
 `;
 
 export const Writer = styled.input`
-  width: calc(100%);
+  width: calc(100% - 30px);
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
 `;
 
 export const Subject = styled.input`
-  width: calc(100%); //996px;
+  width: calc(100% - 30px); //996px;
   height: 52px;
   padding-left: 16px;
+  border: 1px solid #bdbdbd;
 `;
