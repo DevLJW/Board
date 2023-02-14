@@ -76,7 +76,7 @@ export default function BoardWrite() {
         <RadioLabel htmlFor="image">사진</RadioLabel>
       </OptionWrapper>
       <ButtonWrapper>
-        <SubmitButton>등록하기</SubmitButton>
+        <SubmitButton>등록</SubmitButton>
       </ButtonWrapper>
     </Wrapper>
   );
