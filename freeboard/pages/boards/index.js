@@ -1,4 +1,18 @@
 import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+// const CREATE_BOARD = gql`
+//   mutation {
+//     createBoard(
+//       writer: "철수"
+//       title: "제목 입니다."
+//       contents: "내용 입니다."
+//     ) {
+//       _id
+//       number
+//       message
+//     }
+//   }
+// `;
 import {
   Title,
   Wrapper,
