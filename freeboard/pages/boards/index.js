@@ -43,7 +43,9 @@ export default function BoardWrite() {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const [BoardInfoAdd] = useMutation(BOARD_INFO_ADD);
+  const [BoardInfoAdd] = useMutation(BOARD_INFO_ADD); //API 통신 함수
+
+  const router = useRouter();
 
   const onChangeWriter = (event) => {
     setWriter(event.target.value);
@@ -94,6 +96,7 @@ export default function BoardWrite() {
     const result = await BoardInfoAdd({
       variables: {
         createBoardInput: {
+          //키와 벨류가 같으면 생략도 가능(shorhand-property) (객체)
           writer: writer,
           password: password,
           title: title,
@@ -101,8 +104,6 @@ export default function BoardWrite() {
         },
       },
     });
-
-    console.log(result);
   };
 
   return (
