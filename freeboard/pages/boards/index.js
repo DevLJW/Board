@@ -93,18 +93,23 @@ export default function BoardWrite() {
     if (writer && password && title && contents) {
       alert("게시글이 등록 되었습니다.");
     }
-
-    const result = await BoardInfoAdd({
-      variables: {
-        createBoardInput: {
-          //키와 벨류가 같으면 생략도 가능(shorhand-property) (객체)
-          writer: writer,
-          password: password,
-          title: title,
-          contents: contents,
+    try {
+      const result = await BoardInfoAdd({
+        variables: {
+          createBoardInput: {
+            //키와 벨류가 같으면 생략도 가능(shorhand-property) (객체)
+            writer: writer,
+            password: password,
+            title: title,
+            contents: contents,
+          },
         },
-      },
-    });
+      });
+      console.log(result);
+      router.push(`/boards/${result.data.createBoard._id}`);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
