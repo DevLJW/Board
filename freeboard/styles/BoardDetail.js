@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 
 export const CardWrapper = styled.div`
   border: 1px solid black;
+
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
