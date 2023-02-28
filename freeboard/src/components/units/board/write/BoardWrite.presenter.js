@@ -11,7 +11,7 @@ export default function BoardWriteUI(props) {
           <W.Writer
             type="text"
             placeholder="이름을 입력 해주세요."
-            onChange={props.onChangeTitle}
+            onChange={props.onChangeWriter}
           ></W.Writer>
           <W.Error>{props.writerError}</W.Error>
         </W.InputWrapper>

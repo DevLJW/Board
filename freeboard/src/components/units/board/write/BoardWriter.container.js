@@ -79,7 +79,7 @@ export default function BoardWrite() {
       //console.log(result);
       router.push(`/boards/${result.data.createBoard._id}`);
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
     }
   };
 
