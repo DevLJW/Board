@@ -9,7 +9,7 @@ export default function BoardWrite(props) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [isActive, setIsActive] = useState("false"); //버튼 활성화 훅
+  const [isActive, setIsActive] = useState(false); //버튼 활성화 훅
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -40,6 +40,12 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setPasswordError(""); //에러 초기화
     }
+
+    if (event.target.value && writer && title && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onChangeTitle = (event) => {
@@ -47,12 +53,24 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setTitleError("");
     }
+
+    if (event.target.value && writer && password && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onChangeContents = (event) => {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
+    }
+
+    if (event.target.value && writer && password && title) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
     }
   };
 
@@ -71,23 +89,23 @@ export default function BoardWrite(props) {
     }
     if (writer && password && title && contents) {
       alert("게시글이 등록 되었습니다.");
-    }
 
-    try {
-      const result = await BoardInfoAdd({
-        variables: {
-          createBoardInput: {
-            writer: writer,
-            password: password,
-            title: title,
-            contents: contents,
+      try {
+        const result = await BoardInfoAdd({
+          variables: {
+            createBoardInput: {
+              writer: writer,
+              password: password,
+              title: title,
+              contents: contents,
+            },
           },
-        },
-      });
-      //console.log(result);
-      router.push(`/boards/${result.data.createBoard._id}`);
-    } catch (error) {
-      // alert(error.message);
+        });
+        //console.log(result);
+        router.push(`/boards/${result.data.createBoard._id}`);
+      } catch (error) {
+        // alert(error.message);
+      }
     }
   };
 
@@ -122,6 +140,7 @@ export default function BoardWrite(props) {
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
+      isActive={isActive}
     />
   );
 }

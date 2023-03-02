@@ -3,7 +3,7 @@ import * as W from "./BoardWrite.styles";
 export default function BoardWriteUI(props) {
   return (
     <W.Wrapper>
-      <W.Title>게시글 등록</W.Title>
+      <W.Title>게시글 {props.isEdit ? "수정하기" : "등록하기"}</W.Title>
       <W.WriterWrapper>
         <W.InputWrapper>
           <W.Label>작성자</W.Label>
@@ -70,7 +70,12 @@ export default function BoardWriteUI(props) {
         <W.RadioLabel htmlFor="image">사진</W.RadioLabel>
       </W.OptionWrapper>
       <W.ButtonWrapper>
-        <W.SubmitButton onClick={props.onClickSubmit}>등록</W.SubmitButton>
+        <W.SubmitButton
+          onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
+          isActive={props.isEdit ? true : props.isActive}
+        >
+          {props.isEdit ? "수정하기" : "등록하기"}
+        </W.SubmitButton>
       </W.ButtonWrapper>
     </W.Wrapper>
   );
