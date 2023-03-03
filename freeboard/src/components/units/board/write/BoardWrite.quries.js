@@ -12,12 +12,12 @@ export const UPDATE_BOARD = gql`
   mutation updateBoard(
     $boardId: ID!
     $password: String
-    $updateBoardInput: UpdateBoard
+    $updateBoardInput: UpdateBoardInput!
   ) {
     updateBoard(
       boardId: $boardId
       password: $password
-      updateBoardInput: $updateBoard
+      updateBoardInput: $updateBoardInput
     ) {
       _id
     }
