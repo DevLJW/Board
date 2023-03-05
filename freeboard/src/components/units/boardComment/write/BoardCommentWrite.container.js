@@ -3,13 +3,13 @@ import { useState } from "react";
 import BoardCommentUI from "./BoardCommentWrite.presenter";
 import { CREATE_BOARD_COMMENT } from "./BoardComment.quries";
 import { useRouter } from "next/router";
-import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentListqueries";
+import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 
 export default function BoardCommentWrite() {
   const router = useRouter();
-  const [Writer, setWriter] = useState("");
-  const [PassWord, setPassWord] = useState("");
-  const [Contents, setContents] = useState("");
+  const [writer, setWriter] = useState("");
+  const [password, setPassWord] = useState("");
+  const [contents, setContents] = useState("");
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
   const onChangeWriter = (event) => {
@@ -29,30 +29,31 @@ export default function BoardCommentWrite() {
 
   const onClickWrite = async () => {
     //등록하기 버튼
-
-    await createBoardComment({
-      variables: {
-        createBoardCommentInput: {
-          writer: Writer,
-          password: PassWord,
-          contents: Contents,
-          rating: 0,
-        },
-        boardId: router.query.boardId,
-      },
-
-      refetchQueries: [
-        {
-          query: FETCH_BOARD_COMMENTS,
-          variables: {
-            boardId: router.query.boardId,
-          },
-        },
-      ],
-    });
     try {
+      const abc = await createBoardComment({
+        variables: {
+          createBoardCommentInput: {
+            writer: writer,
+            password: password,
+            contents: contents,
+            rating: 0,
+          },
+          boardId: router.query.boardId,
+        },
+
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: {
+              boardId: router.query.boardId,
+            },
+          },
+        ],
+      });
+
+      console.log(abc);
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     }
   };
 
@@ -62,7 +63,7 @@ export default function BoardCommentWrite() {
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
       onClickWrite={onClickWrite}
-      Contents={Contents}
+      Contents={contents}
     />
   );
 }

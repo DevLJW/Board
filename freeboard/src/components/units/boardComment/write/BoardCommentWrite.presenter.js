@@ -4,7 +4,7 @@ export default function BoardCommentUI(props) {
   return (
     <S.Wrapper>
       <>
-        <S.PencilIcon></S.PencilIcon>
+        <S.PencilIcon src="/images/boardComment/write/pencil.png"></S.PencilIcon>
         <span>댓글 작성하기</span>
       </>
 
