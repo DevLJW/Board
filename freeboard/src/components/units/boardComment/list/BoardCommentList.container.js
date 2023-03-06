@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardCommentListUI from "./BoardCommentList.presenter";
 
@@ -9,6 +9,8 @@ import {
 
 export default function BoardCommentList() {
   const router = useRouter();
+
+  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
 
   const { data } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.boardId },
