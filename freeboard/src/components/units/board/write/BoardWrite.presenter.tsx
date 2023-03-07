@@ -1,6 +1,7 @@
 import * as W from "./BoardWrite.styles";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <W.Wrapper>
       <W.Title>게시글 {props.isEdit ? "수정하기" : "등록하기"}</W.Title>
