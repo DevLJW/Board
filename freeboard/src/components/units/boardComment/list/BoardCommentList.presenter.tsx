@@ -1,5 +1,5 @@
 import * as S from "./BoardCommentList.styles";
-import { getMyDate } from "@/src/commons/utils/utils";
+import { getMyDate } from "../../../../commons/utils/utils";
 export default function BoardCommentListUI(props) {
   return (
     <div>
