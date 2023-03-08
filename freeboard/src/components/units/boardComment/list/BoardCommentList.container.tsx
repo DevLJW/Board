@@ -21,7 +21,7 @@ export default function BoardCommentList() {
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
+    variables: { boardId: String(router.query.BoardId) },
   });
   console.log(data);
 
@@ -36,12 +36,12 @@ export default function BoardCommentList() {
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,
-            variables: { boardId: router.query.boardId },
+            variables: { boardId: String(router.query.BoardId) },
           },
         ],
       });
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 

@@ -130,14 +130,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
     try {
       const result = await updateBoard({
         variables: {
-          boardId: router.query.boardId,
+          boardId: String(router.query.boardId),
           password: password,
           updateBoardInput: updateBoardInput,
         },
       });
       router.push(`/boards/${result?.data?.updateBoard._id}`);
     } catch (error) {
-      console.log(error.log);
+      if (error instanceof Error) console.log(error);
     }
   };
 

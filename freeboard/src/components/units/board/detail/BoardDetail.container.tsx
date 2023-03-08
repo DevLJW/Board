@@ -4,6 +4,7 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
+
 import BoardDetailUI from "./BoardDetail.presenter";
 import { FETCH_BOARD } from "./BoardDetail.quries";
 
@@ -13,15 +14,19 @@ export default function BoardDetail() {
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
-      variables: { boardId: router.query.boardId },
+      variables: { boardId: String(router.query.BoardId) },
     }
   );
 
+  console.log(data);
+
   const onClickMoveToBoardList = () => {
+    //목록으로가기
     router.push("/");
   };
 
   const onClickMoveToBoardEdit = () => {
+    //수정하기 페이지
     router.push(`/boards/${router.query.boardId}/edit`);
   };
 
