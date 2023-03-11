@@ -3,11 +3,11 @@ import BoardCommentWrite from "../../../src/components/units/boardComment/write/
 import BoardCommentList from "../../../src/components/units/boardComment/list/BoardCommentList.container";
 
 export default function BoardDetailPage() {
-  return (
-    <>
-      <BoardDetail />
-      <BoardCommentWrite />
-      <BoardCommentList />
-    </>
-  );
+      return (
+            <>
+                  <BoardDetail />
+                  <BoardCommentWrite />
+                  <BoardCommentList />
+            </>
+      );
 }
