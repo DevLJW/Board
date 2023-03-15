@@ -29,5 +29,6 @@ module.exports = {
             "@typescript-eslint/restrict-plus-operands": "off",
             "react/jsx-key": "off",
             "@typescript-eslint/restrict-template-expressions": "off",
+            "@typescript-eslint/prefer-nullish-coalescing": "off",
       },
 };
