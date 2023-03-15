@@ -22,6 +22,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const [passwordError, setPasswordError] = useState("");
       const [titleError, setTitleError] = useState("");
       const [contentsError, setContentsError] = useState("");
+      const [ZoneCode, setZoneCode] = useState("");
+      const [Address, setAddress] = useState("");
+      const [addressDetail, setAddressDetail] = useState("");
+      const [youtubeUrl, setYoutubeUrl] = useState("");
+
+      const [isOpen, setIsOpen] = useState(false);
 
       const [BoardInfoAdd] = useMutation<
             Pick<IMutation, "createBoard">,
@@ -87,6 +93,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
             }
       };
 
+      const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
+            setAddressDetail(event.target.value);
+      };
+
+      const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+            setYoutubeUrl(event.target.value);
+      };
+
       const onClickSubmit = async () => {
             if (!writer) {
                   setWriterError("작성자를 입력해주세요.");
@@ -111,6 +125,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
                                           password: password,
                                           title: title,
                                           contents: contents,
+                                          youtubeUrl: youtubeUrl,
+                                          boardAddress: {
+                                                zipcode: ZoneCode,
+                                                address: Address,
+                                                addressDetail: addressDetail,
+                                          },
                                     },
                               },
                         });
@@ -127,8 +147,34 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const updateBoardInput: IUpdateBoardInput = {};
       if (title) updateBoardInput.title = title;
       if (contents) updateBoardInput.contents = contents;
+      if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
+
+      if (ZoneCode || Address || addressDetail) {
+            updateBoardInput.boardAddress = {};
+            if (ZoneCode) updateBoardInput.boardAddress.zipcode = ZoneCode;
+            if (Address) updateBoardInput.boardAddress.address = Address;
+            if (addressDetail)
+                  updateBoardInput.boardAddress.addressDetail = addressDetail;
+      }
 
       const onClickUpdate = async () => {
+            if (
+                  !title &&
+                  !contents &&
+                  !youtubeUrl &&
+                  !Address &&
+                  !addressDetail &&
+                  !ZoneCode
+            ) {
+                  alert("수정한 내용이 없습니다.");
+                  return;
+            }
+
+            if (!password) {
+                  alert("비밀번호를 입력해주세요.");
+                  return;
+            }
+
             try {
                   const result = await updateBoard({
                         variables: {
@@ -145,6 +191,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
             }
       };
 
+      const ModalOpen = () => {
+            setIsOpen(true);
+      };
+
+      const ModalSearchComplete = (data: any) => {
+            setZoneCode(data.zonecode);
+            setAddress(data.address);
+            setIsOpen(false);
+      };
+
       return (
             <BoardWriteUI
                   writerError={writerError}
@@ -159,6 +215,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
                   onClickUpdate={onClickUpdate}
                   isEdit={props.isEdit}
                   isActive={isActive}
+                  ModalOpen={ModalOpen}
+                  isOpen={isOpen}
+                  ModalSearchComplete={ModalSearchComplete}
+                  ZoneCode={ZoneCode}
+                  Address={Address}
+                  data={props.data}
+                  onChangeAddressDetail={onChangeAddressDetail}
+                  addressDetail={addressDetail}
+                  onChangeYoutubeUrl={onChangeYoutubeUrl}
+                  youtubeUrl={youtubeUrl}
             />
       );
 }

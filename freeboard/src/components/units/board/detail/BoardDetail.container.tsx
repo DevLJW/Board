@@ -27,7 +27,7 @@ export default function BoardDetail() {
 
       const onClickMoveToBoardEdit = () => {
             //수정하기 페이지
-            router.push(`/boards/${String(router.query.boardId)}/edit`);
+            router.push(`/boards/${router.query.BoardId}/edit`);
       };
 
       return (
