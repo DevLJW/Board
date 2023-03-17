@@ -176,7 +176,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     try {
       const result = await updateBoard({
         variables: {
-          boardId: String(router.query.BoardId),
+          boardId: String(router.query.boardId),
           password: password,
           updateBoardInput: updateBoardInput,
         },
