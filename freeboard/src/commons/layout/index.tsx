@@ -18,8 +18,8 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       <LayoutHeader></LayoutHeader>
-      <LayoutBanner></LayoutBanner>
-      <LayoutNavigation></LayoutNavigation>
+      {/* <LayoutBanner></LayoutBanner>
+      <LayoutNavigation></LayoutNavigation> */}
       <Body>{props.children}</Body>
     </>
   );
