@@ -2,23 +2,25 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
   IQuery,
-  IQueryFetchBoardArgs,
   IQueryFetchBoardsArgs,
   IQueryFetchBoardsCountArgs,
 } from "../../../../commons/types/generated/types";
 import BoardListUI from "./BoardList.presenter";
-import { FETCH_BOARDS } from "./BoardListqueries";
+import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardListqueries";
 import { MouseEvent } from "react";
 
 export default function BoardListPage() {
   const router = useRouter();
+
+  //  게시글 리스트 출력 쿼리 + 리패치쿼리 하나의 쿼리로 2개기능 사용
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
-    IQueryFetchBoardArgs
+    IQueryFetchBoardsArgs
   >(FETCH_BOARDS); //바로 실행 후, 조회한 값을 data에 반환
 
+  //  작성된 게시글 총 개수 쿼리
   const { data: BoardsCount } = useQuery<
-    Pick<IQuery, "fetBoardsCount">,
+    Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
   >(FETCH_BOARDS_COUNT); //바로 실행 후, 조회한 값을 data에 반환
 
@@ -38,6 +40,8 @@ export default function BoardListPage() {
       data={data} //API 서버에서 조회한 값을 자식 props에게 넘겨주기
       onClickNewBoard={onClickNewBoard}
       onClickBoardDetail={onClickBoardDetail}
+      refetch={refetch}
+      BoardsCount={BoardsCount?.fetchBoardsCount}
     ></BoardListUI>
   );
 }
