@@ -12,12 +12,14 @@ export default function PaginationsMain(props: IPaginationsMain) {
     props.refetch({ page: ClickPage });
   };
 
+  //  이전 페이지
   const onClickPrevPage = () => {
     if (startPage === 1) return;
     setStartPage((prev) => prev - 10);
     props.refetch({ page: startPage - 10 });
   };
 
+  //  다음 페이지
   const onClickNextPage = () => {
     setStartPage((prev) => prev + 10);
     props.refetch({ page: startPage + 10 });
