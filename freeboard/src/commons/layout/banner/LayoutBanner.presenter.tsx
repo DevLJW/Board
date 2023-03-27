@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { SliderItem, Wrapper } from "./LayoutBanner.styles";
 
 export default function LayoutBannerUI() {
+  //슬라이더 세팅
   const settings = {
     dots: true,
     infinite: true,
