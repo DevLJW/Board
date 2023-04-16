@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, ChangeEvent } from "react";
 import FireBaseBoardWriteUI from "./firebaseboardwrite.presenter";
 import { collection, getFirestore, addDoc } from "firebase/firestore/lite";
-import { firebaseApp } from "../../../../../pages/_app";
+import { firebaseApp } from "../../../../commons/libraries/firebase";
 export default function FireBaseBoardWrite() {
   const router = useRouter();
   const [writer, setwriter] = useState("");
