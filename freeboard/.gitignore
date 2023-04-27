@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# 업로도 제외 확장자
+*.gitignore
+*.lock
+
 # testing
 /coverage
 
