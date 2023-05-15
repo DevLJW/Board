@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
@@ -7,9 +7,8 @@ import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
-  IUpdateBoardInput,
 } from "../../../../commons/types/generated/types";
-import { IBoardWriteProps } from "./BoardWrite.types";
+import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const [writer, setWriter] = useState("");
@@ -28,6 +27,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [FileUrls, setFileFileUrls] = useState(["", "", ""]);
 
   const [BoardInfoAdd] = useMutation<
     Pick<IMutation, "createBoard">,
@@ -101,6 +102,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setYoutubeUrl(event.target.value);
   };
 
+  const onChangeFileUrls = (FileUrl: string, index: number) => {
+    const newFileUrls = [...FileUrls]; //글작성 할때 빈값
+    newFileUrls[index] = FileUrl;
+    setFileFileUrls(newFileUrls); // 작성하고 나서 url값이 배열에 들어감
+  };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -131,6 +138,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
                 address: Address,
                 addressDetail: addressDetail,
               },
+              images: [...FileUrls],
             },
           },
         });
@@ -142,27 +150,20 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
-  const updateBoardInput: IUpdateBoardInput = {};
-  if (title) updateBoardInput.title = title;
-  if (contents) updateBoardInput.contents = contents;
-  if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
-
-  if (ZoneCode || Address || addressDetail) {
-    updateBoardInput.boardAddress = {};
-    if (ZoneCode) updateBoardInput.boardAddress.zipcode = ZoneCode;
-    if (Address) updateBoardInput.boardAddress.address = Address;
-    if (addressDetail)
-      updateBoardInput.boardAddress.addressDetail = addressDetail;
-  }
-
   const onClickUpdate = async () => {
+    const currentFiles = JSON.stringify(FileUrls);
+    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFiles = currentFiles !== defaultFiles;
+    //같지 않을때 파일이 변경됨(true) 반환
+
     if (
       !title &&
       !contents &&
       !youtubeUrl &&
       !Address &&
       !addressDetail &&
-      !ZoneCode
+      !ZoneCode &&
+      !isChangedFiles
     ) {
       alert("수정한 내용이 없습니다.");
       return;
@@ -172,6 +173,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
       alert("비밀번호를 입력해주세요.");
       return;
     }
+
+    const updateBoardInput: IUpdateBoardInput = {};
+    if (title) updateBoardInput.title = title;
+    if (contents) updateBoardInput.contents = contents;
+    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
+
+    if (ZoneCode || Address || addressDetail) {
+      updateBoardInput.boardAddress = {};
+      if (ZoneCode) updateBoardInput.boardAddress.zipcode = ZoneCode;
+      if (Address) updateBoardInput.boardAddress.address = Address;
+      if (addressDetail)
+        updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
+
+    if (isChangedFiles) updateBoardInput.images = FileUrls;
 
     try {
       const result = await updateBoard({
@@ -198,6 +214,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setIsOpen(false);
   };
 
+  //게시글 수정시 기존 이미지 가져오기
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length) {
+      setFileFileUrls([...props.data.fetchBoard.images]);
+    }
+  }, [props.data]); // props.data가 수정될때마다 리렌더링 해주기(처음API 통신을 통해 데이터를 받아옴(변경) 실행)
+
   return (
     <BoardWriteUI
       writerError={writerError}
@@ -222,6 +245,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       addressDetail={addressDetail}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
       youtubeUrl={youtubeUrl}
+      FileUrls={FileUrls}
+      onChangeFileUrls={onChangeFileUrls}
     />
   );
 }
