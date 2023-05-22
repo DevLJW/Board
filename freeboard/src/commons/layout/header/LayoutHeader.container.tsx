@@ -9,13 +9,18 @@ export default function LayoutHeader() {
   };
 
   const onClickMoveToLogin = () => {
-    router.push("/login");
+    router.push("/Login");
+  };
+
+  const onClickMoveToUserJoin = () => {
+    router.push("/UserJoin");
   };
 
   return (
     <LayoutHeaderUI
       onClickLogo={onClickLogo}
       onClickMoveToLogin={onClickMoveToLogin}
+      onClickMoveToUserJoin={onClickMoveToUserJoin}
     ></LayoutHeaderUI>
   );
 }
