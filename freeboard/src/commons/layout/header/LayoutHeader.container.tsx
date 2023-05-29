@@ -16,11 +16,16 @@ export default function LayoutHeader() {
     router.push("/UserJoin");
   };
 
+  const onClickMoveToShoppingBaskets = () => {
+    router.push("/ShoppingBaskets");
+  };
+
   return (
     <LayoutHeaderUI
       onClickLogo={onClickLogo}
       onClickMoveToLogin={onClickMoveToLogin}
       onClickMoveToUserJoin={onClickMoveToUserJoin}
+      onClickMoveToShoppingBaskets={onClickMoveToShoppingBaskets}
     ></LayoutHeaderUI>
   );
 }
