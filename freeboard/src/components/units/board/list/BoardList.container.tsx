@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
+  IBoard,
   IQuery,
   IQueryFetchBoardsArgs,
   IQueryFetchBoardsCountArgs,
@@ -14,14 +15,17 @@ import {
 import { MouseEvent, useEffect, useState } from "react";
 import { accessTokenState } from "../../../../commons/store";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { IBoardListPage } from "./BoardList.types";
 
-export default function BoardListPage() {
+export default function BoardListPage(props: IBoardListPage) {
   //const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
-  const { data: LoginUser } =
-    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
-  console.log(LoginUser);
-
+  // const { data: LoginUser } =
+  //   useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  // console.log(LoginUser);
+  type IBaskets = Array<
+    Pick<IBoard, "contents" | "title" | "_id" | "writer" | "createdAt">
+  >;
   const router = useRouter();
   const [keyword, setChangeKeyword] = useState("");
 
@@ -57,6 +61,28 @@ export default function BoardListPage() {
     setChangeKeyword(value);
   };
 
+  const onClickBasket = (basket: IBoard) => () => {
+    console.log(basket);
+
+    // 1. 기존 장바구니 가져오기
+    //    basket = []로 초기화 해버리면 기존에 있는 게시글 정보가 다 삭제되고 초기화댐
+    //  ex : 3번게시글이 있으면 localstorage내용 push 없으면 [] 푸쉬
+    const baskets: IBaskets = JSON.parse(
+      localStorage.getItem("baskets") ?? "[]" // 배스킷이 없으면 빈배열 만들기
+    ); //  가져온 예시 데이터 : const baskets = [{id:"6dsad854",writer: "철수", title: "안녕하세요", contents:"내용"}]
+
+    // 2. 이미 담겼는지 확인하기(기존에 담겼던건 제외하기(또 클릭 했을때))
+    const temp = baskets.filter((el) => el._id === basket._id); //  true인경우 1 반환 false는 0반환
+    if (temp.length === 1) {
+      alert("이미 담으신 물품입니다!!!");
+      return; //  밑에 구문 실행안하고 호출한함수(onClickBasket) 탈출
+    }
+
+    // 3. 해당 장바구니에 담기
+    baskets.push(basket);
+    localStorage.setItem("baskets", JSON.stringify(baskets));
+  };
+
   return (
     <BoardListUI
       data={data} //API 서버에서 조회한 값을 자식 props에게 넘겨주기
@@ -67,6 +93,9 @@ export default function BoardListPage() {
       keyword={keyword}
       BoardsCount={BoardsCount?.fetchBoardsCount}
       refetchBoardsCount={refetchBoardsCount}
+      onClickBasket={onClickBasket}
+      MyPageBaskets={props.MyPageBaskets}
+      isBoolean={props.isBoolean}
     ></BoardListUI>
   );
 }
