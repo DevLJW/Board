@@ -149,7 +149,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       }
     }
   };
-
+  console.log("rr");
+  console.log(title);
   const onClickUpdate = async () => {
     const currentFiles = JSON.stringify(FileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
