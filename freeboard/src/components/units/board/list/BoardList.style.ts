@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ITextTokenProps } from "./BoardList.types";
 
 export const Wrapper = styled.div`
   width: 1800px;
@@ -20,34 +21,40 @@ export const Row = styled.div`
   height: 52px;
   line-height: 52px;
   border-bottom: 1px solid gray;
+`;
+
+export const ColumnHeaderBasic = styled.div`
+  width: 10%;
+  text-align: center;
+`;
+
+export const ColumnHeaderTitle = styled.div`
+  width: 60%;
+  text-align: center;
+`;
+
+export const ColumnTitle = styled.div`
+  width: 60%;
+  text-align: center;
+  cursor: pointer;
 
   :hover {
     color: blue;
   }
 `;
 
-export const ColumnHeaderBasic = styled.div`
-  width: 15%;
-  text-align: center;
-`;
-
-export const ColumnHeaderTitle = styled.div`
-  width: 70%;
-  text-align: center;
-`;
-
 export const ColumnBasic = styled.div`
-  width: 15%;
+  width: 10%;
   text-align: center;
 `;
 
-export const ColumnTitle = styled.div`
-  width: 70%;
+export const ColumnBuy = styled.div`
+  width: 10%;
   text-align: center;
   cursor: pointer;
 
   :hover {
-    color: blue;
+    background-color: #f5f2fc;
   }
 `;
 
@@ -70,8 +77,13 @@ export const Button = styled.button`
   justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
+`;
 
-  :hover {
-    background-color: #f5f2fc;
-  }
+export const SearchBar = styled.input`
+  width: 200px;
+  height: 50px;
+`;
+
+export const TextToken = styled.span`
+  color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
 `;
