@@ -17,3 +17,16 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query {
+    fetchUserLoggedIn {
+      _id
+      email
+      name
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
