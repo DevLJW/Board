@@ -1,12 +1,17 @@
 import JoinLoginUI from "./Join_Login.presenter";
 import { IJoinLoginprops } from "./Join_Login.types";
 import { useRecoilState } from "recoil";
-import { JOIN_USER, LOGIN_USER } from "./Join_Login.queries";
-import { useMutation } from "@apollo/client";
+import {
+  FETCH_USER_LOGGED_IN,
+  JOIN_USER,
+  LOGIN_USER,
+} from "./Join_Login.queries";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateUserArgs,
   IMutationLoginUserArgs,
+  IQuery,
 } from "../../../../commons/types/generated/types";
 import { Checkbox, Modal } from "antd";
 import { useRouter } from "next/router";
@@ -104,6 +109,12 @@ export default function JoinLogin(props: IJoinLoginprops) {
     IMutationLoginUserArgs
   >(LOGIN_USER);
 
+  const abc = () => {
+    const { data } =
+      useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+    console.log(data);
+  };
+
   // const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
   //   setEmail(event.target.value);
   // };
@@ -139,7 +150,6 @@ export default function JoinLogin(props: IJoinLoginprops) {
   };
 
   const LoginButton = async (data: ILoginSchema) => {
-    console.log(data);
     try {
       const result = await LoginUser({
         variables: {
