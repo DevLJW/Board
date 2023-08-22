@@ -48,8 +48,9 @@ export const ImageWrapper = styled.div<{
 }>`
   width: ${(props) => props.stylesprops.width};
   height: ${(props) => props.stylesprops.height};
-  border: 5px solid green;
+
   margin-top: ${(props) => props.stylesprops.margintop};
+  margin-bottom: ${(props) => props.stylesprops.marginbottom};
 `;
 
 export const ImageWriteDetailWrapper = styled.div<{
@@ -127,6 +128,7 @@ export const CardWrapper = styled.div`
 
 export const Header = styled.div<{ stylesprops: any }>`
   width: 100%;
+  height: ${(props) => props.stylesprops.height};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -134,6 +136,7 @@ export const Header = styled.div<{ stylesprops: any }>`
   border-bottom: 1px solid #bdbdbd;
   padding-bottom: 20px;
   margin-top: ${(props) => props.stylesprops.margintop};
+  border: 1px solid purple;
 `;
 
 export const AvatarWrapper = styled.div`
@@ -193,7 +196,6 @@ export const ButtonWrapper = styled.div<{ stylesprops?: any }>`
   display: ${(props) => props.stylesprops.displayflex};
   justify-content: ${(props) => props.stylesprops.justifycontent};
   align-items: ${(props) => props.stylesprops.alignitems};
-  border: 1px solid red;
 `;
 // export const SliderWrapper = styled.div``;
 
