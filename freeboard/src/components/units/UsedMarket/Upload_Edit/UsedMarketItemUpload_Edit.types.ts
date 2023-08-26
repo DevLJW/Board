@@ -1,10 +1,9 @@
-import { FormProviderProps, UseFormReturn } from "react-hook-form";
-import { FieldValues } from "react-hook-form";
+import internal from "stream";
 
 export interface IUsedItemAddress {
   //주소 타입
   zipcode: string;
-  addres: string;
+  address: string;
   addressDetail: string;
   lat: GLfloat;
   lng: GLfloat;
