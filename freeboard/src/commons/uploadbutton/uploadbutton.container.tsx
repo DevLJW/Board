@@ -21,7 +21,6 @@ export default function UploadButton(props: UploadButtonProps) {
     try {
       const result = await uploadFile({ variables: { file } });
       props.onChangeFileUrls(result.data.uploadFile.url, props.index); // 파일 Url Hooks 변경
-      console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
