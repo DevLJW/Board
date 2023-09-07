@@ -7,8 +7,8 @@ export interface UploadButtonProps {
 }
 
 export interface UploadButtonUIProps {
-  fileRef: RefObject<HTMLInputElement>;
-  UploadButtonClick: () => void;
-  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
-  FileUrl: string;
+  fileRef?: RefObject<HTMLInputElement>;
+  UploadButtonClick?: () => void;
+  onChangeFile?: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
+  FileUrl?: string;
 }
