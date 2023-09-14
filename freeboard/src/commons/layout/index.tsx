@@ -18,6 +18,7 @@ const Body = styled.div`
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
+
   const isHiddenHeader = HIDDEN.includes(router.asPath);
 
   return (
