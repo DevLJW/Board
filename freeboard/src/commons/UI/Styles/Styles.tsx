@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export const BasicWrapper = styled.div<{
   //가장바깥틀
@@ -157,7 +159,11 @@ export const Info = styled.div`
 export const Body = styled.div<{ stylesprops?: any }>`
   width: 100%;
   min-height: ${(props) => props.stylesprops.Minheight};
-  border: 1px solid red;
+  border: 5px solid green;
+  display: ${(props) => props.stylesprops.displayflex};
+  flex-direction: ${(props) => props.stylesprops.flexdirection};
+  justify-content: ${(props) => props.stylesprops.justifycontent};
+  align-items: ${(props) => props.stylesprops.alignitems};
 `;
 
 export const Button = styled.button`
@@ -175,14 +181,8 @@ export const Button = styled.button`
 `;
 
 export const SliderWrapper = styled.div`
-  width:100%
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-  margin-top: 150px;
-  
+  border: 1px solid red;
+  width: 50%;
 `;
 
 export const SliderItem = styled.img`
@@ -202,4 +202,10 @@ export const ButtonWrapper = styled.div<{ stylesprops?: any }>`
 export const KaKaoMapWrapper = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+export const slickdotsdiv = styled.div`
+  width: 30px;
+  height: 50px;
+  display: flex;
 `;
