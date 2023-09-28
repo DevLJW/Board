@@ -36,5 +36,5 @@ export interface ITextTokenProps {
 
 export interface IBoardListPage {
   isBoolean: boolean;
-  MyPageBaskets: IBaskets;
+  MyPageBaskets?: IBaskets;
 }
