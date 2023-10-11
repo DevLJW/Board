@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import "../src/commons/UI/slick/slick.css";
+import "../src/commons/UI/slick/slick-theme.css";
 
 import type { AppProps } from "next/app";
 import ApolloSettingProps from "../src/components/apollo";
