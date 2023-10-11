@@ -13,25 +13,35 @@ import {
   FETCH_USER_LOGGED_IN,
 } from "./BoardListqueries";
 import { MouseEvent, useEffect, useState } from "react";
-import { accessTokenState } from "../../../../commons/store";
+import { LoginUserInfo, accessTokenState } from "../../../../commons/store";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { IBoardListPage } from "./BoardList.types";
 
 export default function BoardListPage(props: IBoardListPage) {
-  //const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  // const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
-  // const { data: LoginUser } =
-  //   useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
-  // console.log(LoginUser);
+  // console.log(accessToken);
+
+  //현재 로그인한 사용자의 정보가져오기
+
   type IBaskets = Array<
     Pick<IBoard, "contents" | "title" | "_id" | "writer" | "createdAt">
   >;
   const router = useRouter();
   const [keyword, setChangeKeyword] = useState("");
 
+  const { data: fetchUserLoggedInData } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+
   // 로그인한 사용자 정보 가져오기
 
-  //  프리렌더링 과정에서 프론트엔드는 localStorage 기능이 없기때문에 렌더링이 끝난 후 실행되는 useEffetc사용
+  const [LoginInfo, setAccessLoginInfo] = useRecoilState(LoginUserInfo);
+
+  useEffect(() => {
+    setAccessLoginInfo(() => ({ ...fetchUserLoggedInData }));
+  }, [fetchUserLoggedInData]);
+  console.log("test console");
+  console.log(LoginInfo);
 
   //  게시글 리스트 출력 쿼리 + 리패치쿼리 하나의 쿼리로 2개기능 사용
   const { data, refetch } = useQuery<
